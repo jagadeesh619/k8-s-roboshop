@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: catalogue
 data:
-  MONGO: true
+  MONGO: "true"
 
   
 

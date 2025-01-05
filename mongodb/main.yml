@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb-dep
+  labels:
+    app: mongodb-dep
+    tier: database-dep
+spec:
+  # modify replicas according to your case
+  replicas: 3
+  selector:
+    matchLabels:
+        app: mongodb
+        tier: database                # Upto here this is replica set definition 
+  template:                             # From here POD definition starts 
+    metadata:
+      labels:
+         app: mongodb
+         tier: database
+    spec:
+      containers:
+      - name: mongodb
+        image: jagadevops321/mongodb:1.0.0

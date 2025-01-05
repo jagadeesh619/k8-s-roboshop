@@ -2,12 +2,13 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mongodb-dep
+  namespace: roboshop
   labels:
     app: mongodb-dep
     tier: database-dep
 spec:
   # modify replicas according to your case
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
         app: mongodb
@@ -21,3 +22,4 @@ spec:
       containers:
       - name: mongodb
         image: jagadevops321/mongodb:1.0.0
+        imagePullPolicy: Always

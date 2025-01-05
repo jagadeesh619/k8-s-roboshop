@@ -145,7 +145,7 @@ spec:
         image: jagadevops321/web:1.0.0
         imagePullPolicy: Always
         volumeMounts:
-            - name: nginx-conf
+            - name: nginx-config
               mountPath: /etc/nginx/nginx.conf
               subPath: nginx.conf
               readOnly: true

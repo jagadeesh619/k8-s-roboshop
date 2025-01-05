@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalogue-dep
+  namespace: roboshop
+  labels:
+    app: catalogue-dep
+    tier: backend-dep
+spec:
+  # modify replicas according to your case
+  replicas: 1
+  selector:
+    matchLabels:
+        app: catalogue
+        tier: backend                # Upto here this is replica set definition 
+  template:                             # From here POD definition starts 
+    metadata:
+      labels:
+        app: catalogue
+        tier: backend
+    spec:
+      containers:
+      - name: catalogue
+        image: jagadevops321/catalogue:1.0.0
+        env:
+        - name: MONGO
+          value: true
+        imagePullPolicy: Always
+
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalogue-service
+  namespace: roboshop
+spec:
+	selector:
+    app: catalogue
+    tier: backend
+	ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080

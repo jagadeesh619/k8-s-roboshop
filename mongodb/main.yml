@@ -33,10 +33,10 @@ metadata:
   name: mongodb-service
   namespace: roboshop
 spec:
-	selector:
+  selector:
     app: mongodb
     tier: database
-	ports:
+  ports:
   - protocol: TCP
     port: 27017
     targetPort: 27017

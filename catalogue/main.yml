@@ -35,8 +35,8 @@ spec:
         image: jagadevops321/catalogue:1.0.0
         imagePullPolicy: Always
         envFrom:
-	      - configMapRef:
-            name: catalogue  
+        - configMapRef:
+           name: catalogue  
 
 ---
 
@@ -47,10 +47,10 @@ metadata:
   name: catalogue-service
   namespace: roboshop
 spec:
-	selector:
+  selector:
     app: catalogue
     tier: backend
-	ports:
+  ports:
   - protocol: TCP
     port: 8080
     targetPort: 8080

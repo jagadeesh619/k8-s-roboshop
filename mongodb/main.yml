@@ -23,3 +23,20 @@ spec:
       - name: mongodb
         image: jagadevops321/mongodb:1.0.0
         imagePullPolicy: Always
+
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+	name: mongodb-service
+  namespace: roboshop
+spec:
+	selector:
+      app: mongodb
+      tier: database
+	ports:
+	-   protocol: TCP
+	    port: 27017
+	    targetPort: 27017

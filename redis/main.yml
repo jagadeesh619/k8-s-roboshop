@@ -1,0 +1,42 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-dep
+  labels:
+    app: redis-dep
+    tier: database-dep
+spec:
+  # modify replicas according to your case
+  replicas: 1
+  selector:
+    matchLabels:
+        app: redis
+        tier: database                # Upto here this is replica set definition 
+  template:                             # From here POD definition starts 
+    metadata:
+      labels:
+        app: redis
+        tier: database
+    spec:
+      containers:
+      - name: redis
+        image: redis
+        imagePullPolicy: Always
+
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  namespace: roboshop
+spec:
+  selector:
+    app: redis
+    tier: database
+  ports:
+  - protocol: TCP
+    port: 6379
+    targetPort: 6379

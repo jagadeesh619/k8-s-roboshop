@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cart-dep
+  labels:
+    app: cart-dep
+    tier: backend-dep
+spec:
+  # modify replicas according to your case
+  replicas: 1
+  selector:
+    matchLabels:
+        app: cart
+        tier: backend                # Upto here this is replica set definition 
+  template:                             # From here POD definition starts 
+    metadata:
+      labels:
+        app: cart
+        tier: backend
+    spec:
+      containers:
+      - name: cart
+        image: jagadevops321/cart:1.0.0
+        imagePullPolicy: Always
+
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: cart
+  namespace: roboshop
+spec:
+  selector:
+    app: cart
+    tier: backend
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080

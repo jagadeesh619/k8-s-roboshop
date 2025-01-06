@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql
+  namespace: roboshop
+data:
+  MYSQL_ROOT_PASSWORD: "RoboShop@1"
+  MYSQL_DATABASE: "cities"
+  MYSQL_USER: "shipping"
+  MYSQL_PASSWORD: "RoboShop@1"
+
+
+  
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-dep
+  labels:
+    app: mysql-dep
+    tier: database-dep
+spec:
+  # modify replicas according to your case
+  replicas: 1
+  selector:
+    matchLabels:
+        app: mysql
+        tier: database                # Upto here this is replica set definition 
+  template:                             # From here POD definition starts 
+    metadata:
+      labels:
+        app: mysql
+        tier: database
+    spec:
+      containers:
+      - name: mysql
+        image: jagadevops321/mysql:1.0.0
+        imagePullPolicy: Always
+        envFrom:
+        - configMapRef:
+           name: mysql  
+
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  namespace: roboshop
+spec:
+  selector:
+    app: mysql
+    tier: database
+  ports:
+  - protocol: TCP
+    port: 3306
+    targetPort: 3306

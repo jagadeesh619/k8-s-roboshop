@@ -16,20 +16,20 @@ metadata:
   labels: # these labels are deployment labels
     app: payment
     project: roboshop
-    tier: db
+    tier: app
 spec:
   replicas: 1
   selector:
     matchLabels: # these labels are used to find the pods
       app: payment
       project: roboshop
-      tier: db
+      tier: app
   template:
     metadata:
       labels: # these labels are pod labels
         app: payment
         project: roboshop
-        tier: db
+        tier: app
     spec:
       containers:
       - name: payment
@@ -48,7 +48,7 @@ spec:
   selector:
     app: payment
     project: roboshop
-    tier: db
+    tier: app
   ports:
   - protocol: TCP
     port: 8080 #service-port

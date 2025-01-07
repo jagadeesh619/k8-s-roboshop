@@ -51,5 +51,5 @@ spec:
     tier: db
   ports:
   - protocol: TCP
-    port: 5672 #service-port
-    targetPort: 5672 #container-port
+    port: 8080 #service-port
+    targetPort: 8080 #container-port
